@@ -1,160 +1,170 @@
 "use client";
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Chat from "@/components/chat";
 import { Button } from "@/components/ui/button";
-import {
-  CheckCircle,
-  Zap,
-  Database,
-  Shield,
-  ExternalLink,
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Camera, 
+  UserPlus, 
+  History, 
+  Clock, 
+  Fingerprint,
+  Calendar,
+  LogIn,
+  User
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Hero Section */}
-      <div className="text-center py-12 sm:py-16 relative px-4">
-        <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <ThemeToggle />
-            <SignedOut>
-              <SignInButton>
-                <Button size="sm" className="text-xs sm:text-sm">
-                  Sign In
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Header */}
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Fingerprint className="h-8 w-8 text-blue-600" />
+              <div>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                  Face Attendance
+                </h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Sistem Absensi dengan Pengenalan Wajah
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button variant="outline" size="sm">
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Masuk
+                  </Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="flex items-center space-x-2">
+                  <Link href="/profil">
+                    <Button variant="ghost" size="sm">
+                      <User className="h-4 w-4 mr-2" />
+                      Profil
+                    </Button>
+                  </Link>
+                  <UserButton />
+                </div>
+              </SignedIn>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Selamat Datang di Sistem Absensi
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Sistem presensi modern dengan teknologi pengenalan wajah yang aman dan efisien
+          </p>
+        </div>
+
+        {/* Action Cards */}
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="text-center">
+              <div className="mx-auto h-16 w-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
+                <Camera className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <CardTitle className="text-xl">Langsung Absen</CardTitle>
+              <CardDescription>
+                Lakukan presensi masuk atau pulang dengan pengenalan wajah
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/absen">
+                <Button className="w-full" size="lg">
+                  <Camera className="h-4 w-4 mr-2" />
+                  Mulai Absen
                 </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="text-center">
+              <div className="mx-auto h-16 w-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                <UserPlus className="h-8 w-8 text-green-600 dark:text-green-400" />
+              </div>
+              <CardTitle className="text-xl">Pendaftaran</CardTitle>
+              <CardDescription>
+                Daftar sebagai pengguna baru dan lengkapi data diri Anda
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/daftar">
+                <Button className="w-full" variant="outline" size="lg">
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Daftar Sekarang
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="text-center">
+              <div className="mx-auto h-16 w-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
+                <History className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+              </div>
+              <CardTitle className="text-xl">Riwayat Kehadiran</CardTitle>
+              <CardDescription>
+                Lihat statistik dan riwayat presensi Anda
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/riwayat">
+                <Button className="w-full" variant="outline" size="lg">
+                  <History className="h-4 w-4 mr-2" />
+                  Lihat Riwayat
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4">
-          <Image
-            src="/codeguide-logo.png"
-            alt="CodeGuide Logo"
-            width={50}
-            height={50}
-            className="rounded-xl sm:w-[60px] sm:h-[60px]"
-          />
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
-            CodeGuide Starter
-          </h1>
-        </div>
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-          Build faster with your AI coding agent
-        </p>
-      </div>
-
-      <main className="container mx-auto px-4 sm:px-6 pb-12 sm:pb-8 max-w-5xl">
-        <div className="text-center mb-8">
-          <div className="text-4xl sm:text-5xl mb-2">⚠️</div>
-          <div className="font-bold text-lg sm:text-xl mb-1">Setup Required</div>
-          <div className="text-sm sm:text-base text-muted-foreground">
-            Add environment variables to get started
+        {/* Features Section */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="text-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+            <Clock className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+            <h3 className="font-semibold text-lg mb-2">Real-time</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Proses presensi instan dengan pengenalan wajah real-time
+            </p>
+          </div>
+          <div className="text-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+            <Fingerprint className="h-12 w-12 text-green-600 mx-auto mb-4" />
+            <h3 className="font-semibold text-lg mb-2">Aman</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Teknologi anti-spoofing untuk mencegah kecurangan
+            </p>
+          </div>
+          <div className="text-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+            <Calendar className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+            <h3 className="font-semibold text-lg mb-2">Terintegrasi</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Sistem terintegrasi dengan database cloud
+            </p>
+          </div>
+          <div className="text-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+            <User className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+            <h3 className="font-semibold text-lg mb-2">Mudah Digunakan</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Antarmuka user-friendly dan responsif
+            </p>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-          {/* Clerk */}
-          <div className="text-center p-3 sm:p-4 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10">
-            <div className="flex justify-center mb-3">
-              <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
-            </div>
-            <div className="font-semibold mb-2 text-sm sm:text-base">
-              Clerk Auth
-            </div>
-            <div className="text-xs text-muted-foreground mb-2">
-              <div className="font-mono bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded mb-1">NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</div>
-              <div className="font-mono bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">CLERK_SECRET_KEY</div>
-            </div>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                window.open("https://dashboard.clerk.com", "_blank")
-              }
-              className="w-full text-xs sm:text-sm"
-            >
-              <ExternalLink className="w-3 h-3 mr-1" />
-              Dashboard
-            </Button>
-          </div>
-
-          {/* Supabase */}
-          <div className="text-center p-3 sm:p-4 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10">
-            <div className="flex justify-center mb-3">
-              <Database className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />
-            </div>
-            <div className="font-semibold mb-2 text-sm sm:text-base">
-              Supabase DB
-            </div>
-            <div className="text-xs text-muted-foreground mb-2">
-              <div className="font-mono bg-green-100 dark:bg-green-800 px-2 py-1 rounded mb-1">NEXT_PUBLIC_SUPABASE_URL</div>
-              <div className="font-mono bg-green-100 dark:bg-green-800 px-2 py-1 rounded">NEXT_PUBLIC_SUPABASE_ANON_KEY</div>
-            </div>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                window.open("https://supabase.com/dashboard", "_blank")
-              }
-              className="w-full text-xs sm:text-sm"
-            >
-              <ExternalLink className="w-3 h-3 mr-1" />
-              Dashboard
-            </Button>
-          </div>
-
-          {/* AI */}
-          <div className="text-center p-3 sm:p-4 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/10 dark:to-pink-900/10 sm:col-span-2 md:col-span-1">
-            <div className="flex justify-center mb-3">
-              <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500" />
-            </div>
-            <div className="font-semibold mb-2 text-sm sm:text-base">
-              AI SDK
-            </div>
-            <div className="text-xs text-muted-foreground mb-2">
-              <div className="font-mono bg-purple-100 dark:bg-purple-800 px-2 py-1 rounded mb-1">OPENAI_API_KEY</div>
-              <div className="font-mono bg-purple-100 dark:bg-purple-800 px-2 py-1 rounded">ANTHROPIC_API_KEY</div>
-            </div>
-            <div className="grid grid-cols-2 gap-1 sm:gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() =>
-                  window.open("https://platform.openai.com", "_blank")
-                }
-                className="text-xs px-1 sm:px-2"
-              >
-                OpenAI
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() =>
-                  window.open("https://console.anthropic.com", "_blank")
-                }
-                className="text-xs px-1 sm:px-2"
-              >
-                Anthropic
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Chat Section */}
-        <SignedIn>
-          <div className="mt-6 sm:mt-8">
-            <Chat />
-          </div>
-        </SignedIn>
       </main>
     </div>
   );
