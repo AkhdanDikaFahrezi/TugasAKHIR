@@ -23,9 +23,9 @@ const parkinsans = Parkinsans({
 });
 
 export const metadata: Metadata = {
-  title: "CodeGuide Starter Kit",
+  title: "Face Attendance - Sistem Absensi dengan Pengenalan Wajah",
   description:
-    "A modern Next.js starter with TypeScript, TailwindCSS, shadcn/ui, Vercel AI SDK, Clerk, and Supabase",
+    "Sistem presensi modern dengan teknologi pengenalan wajah yang aman dan efisien untuk kehadiran mahasiswa",
 };
 
 export default function RootLayout({
@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="id" suppressHydrationWarning>
         <body
           className={`${geistSans.className} ${geistMono.className} ${parkinsans.className} antialiased`}
         >
